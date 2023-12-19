@@ -1,19 +1,27 @@
-const { ethers } = require("hardhat");
+const { ethers, network } = require("hardhat");
 const { createInstance } = require("fhevmjs");
+const { getInstance, provider } = require("./interaction");
 
-async function mintToken () {
+// const contractAddress = "0x2e1771fcEFFA28Fd49910AC8aAc647f01A86b58A";
+const signer = new ethers.Wallet(process.env.Private_Key,provider);
+const address = "0x868D08C137ff590BF70D368408B72f748eFbe483"
 
-  const instance = fhevmjs.createInstance({
-    chainId: 8011,
-    publicKey: tfhePublicKey,
-  });
 
-  const contractAddress = "0x2e1771fcEFFA28Fd49910AC8aAc647f01A86b58A";
+async function mintToken (amount) {
+  const contract = await ethers.getContractAt("EncryptedMOCKERC20",address,signer);
+  const fhevm = await getInstance();
 
-  const address = await ethers.getSigner();
+  console.log(`Encrypting the amount sent : ${amount}`);
 
-  const contract = await ethers.getContract("EncryptedMOCKERC20",contractAddress,address);
-}
+  const encryptedValue = fhevm.encrypt32(amount);
+
+  console.log("Sending the transaction");
+
+  const transaction = await contract.mint(encryptedValue);
+  console.log("Waiting for the transaction to go through");
+
+  await provider.waitForTransaction(transaction.hash);
+};
 
 
 mintToken()

@@ -1,20 +1,31 @@
 const { createInstance } = require("fhevmjs");
-const { ethers } = require("hardhat");
-const { DEVNET_URL } = require("../helper-hardhat-config");
+const { ethers, network } = require("hardhat");
+const { DEVNET_URL,zama_devnet } = require("../helper-hardhat-config");
 
 let instance;
-const provider = new ethers.JsonRpcProvider(DEVNET_URL);
+let provider;
+let chainID;
+
+provider = new ethers.providers.JsonRpcProvider(zama_devnet);
+chainID = 8009;
 
 const getInstance = async () => {
     if (instance) return instance;
 
     const network = await ethers.provider.getNetwork();
-    const chainID = network.chainId.toString();
 
     let fhePublicKey;
     fhePublicKey = await ethers.provider.call({ to: "0x0000000000000000000000000000000000000044" });
 
-    instance = createInstance({chainID, fhePublicKey});
+    instance = await createInstance({chainID, fhePublicKey});
 
+    console.log("ran the instance successfully")
+    
     return instance;
+
+}
+
+module.exports = {
+    getInstance,
+    provider
 }

@@ -45,6 +45,11 @@ module.exports = {
       chainId: 5432,
       url: "https://fhenode.fhenix.io/new/evm",
     },
+    zama: {
+      accounts: [Private_Key],
+      chainId: 8009,
+      url: "https://devnet.zama.ai",
+    }
   },
   solidity: {
     compilers: [
