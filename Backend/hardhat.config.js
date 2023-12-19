@@ -41,9 +41,10 @@ module.exports = {
       blockConfirmations: 6,
     },
     fhenix: {
-      accounts: [Private_Key],
-      chainId: 5432,
       url: "https://fhenode.fhenix.io/new/evm",
+      chainId: 5432,
+      accounts: [Private_Key],
+      timeout: 10000000,
     },
     zama: {
       accounts: [Private_Key],
