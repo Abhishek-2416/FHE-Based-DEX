@@ -40,6 +40,11 @@ module.exports = {
       chainId: 80001,
       blockConfirmations: 6,
     },
+    fhenix: {
+      accounts: [Private_Key],
+      chainId: 5432,
+      url: "https://fhenode.fhenix.io/new/evm",
+    },
   },
   solidity: {
     compilers: [
@@ -82,6 +87,6 @@ module.exports = {
     token: "ETH",
   },
   mocha: {
-    timeout: 1000000,
+    timeout: 2000000,
   },
 };
