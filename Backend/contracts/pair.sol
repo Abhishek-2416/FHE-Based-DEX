@@ -36,21 +36,21 @@ contract Pair {
     }
 
     function swap(address _tokenIn, bytes memory _amountIn) external returns (uint amountOut) {
-        uint32 _amountIn = TFHE.decrypt(TFHE.asEuint32(_amountIn));
+        uint32 amountIn = TFHE.decrypt(TFHE.asEuint32(_amountIn));
         require(
             _tokenIn == address(token0) || _tokenIn == address(token1),
             "invalid token"
         );
-        require(_amountIn > 0, "amount in = 0");
+        require(amountIn > 0, "amount in = 0");
 
         bool isToken0 = _tokenIn == address(token0);
         (IERC20 tokenIn, IERC20 tokenOut, uint reserveIn, uint reserveOut) = isToken0
             ? (token0, token1, reserve0, reserve1)
             : (token1, token0, reserve1, reserve0);
 
-        tokenIn.transferFrom(msg.sender, address(this), _amountIn);
+        tokenIn.transferFrom(msg.sender, address(this), amountIn);
 
-        uint amountInWithFee = (_amountIn * 997) / 1000;
+        uint amountInWithFee = (amountIn * 997) / 1000;
         amountOut = (reserveOut * amountInWithFee) / (reserveIn + amountInWithFee);
 
         tokenOut.transfer(msg.sender, amountOut);
@@ -59,22 +59,22 @@ contract Pair {
     }
 
     function addLiquidity(bytes calldata _amount0, bytes calldata _amount1) external returns (uint shares) {
-        uint32 _amount0 = TFHE.decrypt(TFHE.asEuint32(_amount0));
-        uint32 _amount1 = TFHE.decrypt(TFHE.asEuint32(_amount1));
+        uint32 amount0 = TFHE.decrypt(TFHE.asEuint32(_amount0));
+        uint32 amount1 = TFHE.decrypt(TFHE.asEuint32(_amount1));
         
-        token0.transferFrom(msg.sender, address(this), _amount0);
-        token1.transferFrom(msg.sender, address(this), _amount1);
+        token0.transferFrom(msg.sender, address(this), amount0);
+        token1.transferFrom(msg.sender, address(this), amount1);
 
         if (reserve0 > 0 || reserve1 > 0) {
-            require(reserve0 * _amount1 == reserve1 * _amount0, "x / y != dx / dy");
+            require(reserve0 * amount1 == reserve1 * amount0, "x / y != dx / dy");
         }
 
         if (totalSupply == 0) {
-            shares = _sqrt(_amount0 * _amount1);
+            shares = _sqrt(amount0 * amount1);
         } else {
             shares = _min(
-                (_amount0 * totalSupply) / reserve0,
-                (_amount1 * totalSupply) / reserve1
+                (amount0 * totalSupply) / reserve0,
+                (amount1 * totalSupply) / reserve1
             );
         }
         require(shares > 0, "shares = 0");
@@ -87,15 +87,15 @@ contract Pair {
         bytes memory _shares
     ) external returns (uint amount0, uint amount1) {
     
-        uint32 _shares = TFHE.decrypt(TFHE.asEuint32(_shares));
+        uint32 shares = TFHE.decrypt(TFHE.asEuint32(_shares));
         uint bal0 = token0.balanceOf(address(this));
         uint bal1 = token1.balanceOf(address(this));
 
-        amount0 = (_shares * bal0) / totalSupply;
-        amount1 = (_shares * bal1) / totalSupply;
+        amount0 = (shares * bal0) / totalSupply;
+        amount1 = (shares * bal1) / totalSupply;
         require(amount0 > 0 && amount1 > 0, "amount0 or amount1 = 0");
 
-        _burn(msg.sender, _shares);
+        _burn(msg.sender, shares);
         _update(bal0 - amount0, bal1 - amount1);
 
         token0.transfer(msg.sender, amount0);
