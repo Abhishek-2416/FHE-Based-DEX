@@ -42,7 +42,8 @@ module.exports = {
       blockConfirmations: 6,
     },
     localfhenix: {
-      accounts: { mnemonic, path: "m/44'/60'/0'/0" },
+      // pubkey1 : 0x0319069ca5e383e40d6d19fb3e76e8b22b91cf4b0df661850c8e1de01624ab1d10
+      accounts: ["0x6ce6cbc11dea3db360b9c6e9ae229e2c17ef9104fecedb552f0e4e7da6b80af0"],
       chainId: 5432,
       url: "http://localhost:8545",
     },
