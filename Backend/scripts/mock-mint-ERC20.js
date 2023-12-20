@@ -8,7 +8,7 @@ const address = "0x868D08C137ff590BF70D368408B72f748eFbe483"
 
 
 async function mintToken (amount) {
-  amount = 100
+  amount = 1000
   const contract = await ethers.getContractAt("EncryptedMOCKERC20",address,signer);
   const fhevm = await getInstance();
 
@@ -22,6 +22,8 @@ async function mintToken (amount) {
   console.log("Waiting for the transaction to go through");
 
   await provider.waitForTransaction(transaction.hash);
+
+  console.log("Transaction is done!!!!!!")
 };
 
 

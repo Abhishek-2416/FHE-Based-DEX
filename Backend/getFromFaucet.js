@@ -1,15 +1,15 @@
 require('dotenv').config();
-const {ethers} = require('hardhat');
+const { ethers } = require('hardhat');
 const axios = require('axios');
 
 async function mnemonicToAddress() {
     let words = process.env.MNEMONIC;
 
-    const mnemonic = ethers.Mnemonic.fromPhrase(words);
-    if (!mnemonic) {
-        throw new Error("No MNEMONIC in .env file")
-    }
-    const wallet = ethers.HDNodeWallet.fromMnemonic(mnemonic, `m/44'/60'/0'/0/0`);
+    // const mnemonic = ethers.Mnemonic.fromPhrase(words);
+    // if (!mnemonic) {
+    //     throw new Error("No MNEMONIC in .env file")
+    // }
+    const wallet = ethers.utils.HDNode.fromMnemonic(words, `m/44'/60'/0'/0/0`);
 
     console.log("Ethereum address: " + wallet.address);
     return wallet.address;

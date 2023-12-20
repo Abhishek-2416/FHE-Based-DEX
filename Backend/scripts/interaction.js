@@ -1,21 +1,21 @@
 const { createInstance } = require("fhevmjs");
-const { ethers } = require("ethers");
+const {  ethers } = require("hardhat");
 const { DEVNET_URL,zama_devnet } = require("../helper-hardhat-config");
 
 let instance;
 let provider;
 let chainID;
 
-provider = new ethers.JsonRpcProvider(zama_devnet);
+provider =  new ethers.providers.JsonRpcProvider(zama_devnet)
 chainID = 8011;
 
 const getInstance = async () => {
     if (instance) return instance;
 
-    const network = await ethers.provider.getNetwork();
+    // const network = new ethers.providers.getNetwork();
 
     let fhePublicKey;
-    fhePublicKey = await ethers.provider.call({ to: "0x0000000000000000000000000000000000000044" });
+    fhePublicKey = await provider.call({ to: "0x0000000000000000000000000000000000000044" });
 
     instance = await createInstance({
         chainId: 8011,
