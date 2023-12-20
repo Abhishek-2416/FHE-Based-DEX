@@ -8,7 +8,7 @@ const address = "0x868D08C137ff590BF70D368408B72f748eFbe483"
 
 
 async function mintToken (amount) {
-  amount = 1
+  amount = 100
   const contract = await ethers.getContractAt("EncryptedMOCKERC20",address,signer);
   const fhevm = await getInstance();
 

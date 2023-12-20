@@ -17,6 +17,7 @@ const RPC_URL_Alchemy_MAINNET = process.env.RPC_URL_Alchemy_MAINNET;
 
 const Private_Key_G = process.env.Private_Key_G;
 const RPC_URL_G = process.env.RPC_URL_G;
+const mnemonic =  process.env.MNEMONIC;
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -39,6 +40,11 @@ module.exports = {
       accounts: [Private_Key],
       chainId: 80001,
       blockConfirmations: 6,
+    },
+    localfhenix: {
+      accounts: { mnemonic, path: "m/44'/60'/0'/0" },
+      chainId: 5432,
+      url: "http://localhost:8545",
     },
     fhenix: {
       url: "https://fhenode.fhenix.io/new/evm",

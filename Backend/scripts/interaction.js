@@ -1,12 +1,12 @@
 const { createInstance } = require("fhevmjs");
-const { ethers, network } = require("hardhat");
+const { ethers } = require("ethers");
 const { DEVNET_URL,zama_devnet } = require("../helper-hardhat-config");
 
 let instance;
 let provider;
 let chainID;
 
-provider = new ethers.providers.JsonRpcProvider(zama_devnet);
+provider = new ethers.JsonRpcProvider(zama_devnet);
 chainID = 8011;
 
 const getInstance = async () => {
