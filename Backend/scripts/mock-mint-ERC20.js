@@ -4,7 +4,7 @@ const { getInstance, provider } = require("./interaction");
 
 // const contractAddress = "0x2e1771fcEFFA28Fd49910AC8aAc647f01A86b58A";
 const signer = new ethers.Wallet(process.env.Private_Key,provider);
-const address = "0x868D08C137ff590BF70D368408B72f748eFbe483"
+const address = "0xF132c32539d2E27E18eC34C3a113489a26687Fa9"
 
 
 async function mintToken (amount) {

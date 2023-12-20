@@ -1,6 +1,6 @@
-require('dotenv').config();
 const { ethers } = require('hardhat');
 const axios = require('axios');
+require('dotenv').config();
 
 async function mnemonicToAddress() {
     let words = process.env.MNEMONIC;

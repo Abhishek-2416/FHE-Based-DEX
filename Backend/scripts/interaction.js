@@ -1,6 +1,6 @@
 const { createInstance } = require("fhevmjs");
 const {  ethers } = require("hardhat");
-const { DEVNET_URL,zama_devnet } = require("../helper-hardhat-config");
+const { DEVNET_URL, zama_devnet } = require("../helper-hardhat-config");
 
 let instance;
 let provider;
