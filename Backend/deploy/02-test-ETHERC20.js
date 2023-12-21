@@ -8,15 +8,15 @@ module.exports = async ({getNamedAccounts, deployments}) => {
 
     args = [];
 
-    const EncryptedMOCKERC20 = await deploy("EncryptedMOCKERC20", {
+    const ETHERC20 = await deploy("ETHERC20", {
         args: args,
         from: deployer,
         log: true,
     });
 
-    log(`The address of the dpeloyed contract ${EncryptedMOCKERC20.address}`);
+    log(`The address of the dpeloyed contract ${ETHERC20.address}`);
 
     log("------------------------------------------------------------------------");
 }
 
-module.exports.tags = ["all", "EncryptedMOCKERC20"];
+module.exports.tags = ["all", "ETHERC20"];
