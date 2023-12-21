@@ -4,18 +4,12 @@ pragma solidity 0.8.19;
 import {CPAMM} from "./AMM.sol";
 
 contract Factory {
-    address public feeTo;
-    address public feeToSetter;
 
     mapping(address => mapping(address => address)) public getPair;
 
     address[] public allPairs;
 
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
-
-    constructor(address _feeToSetter) public {
-        feeToSetter = _feeToSetter;
-    }
 
     function allPairsLength() external view returns (uint) {
         return allPairs.length;
@@ -37,15 +31,6 @@ contract Factory {
         allPairs.push(pair);
         emit PairCreated(token0, token1, pair, allPairs.length);
     }
-
-    function setFeeTo(address _feeTo) external {
-        require(msg.sender == feeToSetter, 'UniswapV2: FORBIDDEN');
-        feeTo = _feeTo;
-    }
-
-    function setFeeToSetter(address _feeToSetter) external {
-        require(msg.sender == feeToSetter, 'UniswapV2: FORBIDDEN');
-        feeToSetter = _feeToSetter;
-    }
+    
 
 }

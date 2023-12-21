@@ -2,12 +2,15 @@
 
 pragma solidity ^0.8.19;
 
-import "./IERC20.sol";
+import "./interfaces/IAMM.sol";
+import "@openzeppelin/contracts/interfaces/IERC20.sol";
 
 
 contract CPAMM {
-    IERC20 public immutable token0;
-    IERC20 public immutable token1;
+    IERC20 public  token0;
+    IERC20 public  token1;
+
+    address public immutable factory;
 
     uint public reserve0; // internal balanceof token0
     uint public reserve1; // internal balanceof token1 
@@ -16,13 +19,13 @@ contract CPAMM {
     mapping(address => uint) public balanceOf;  // to map the shares of a specific address
 
     constructor(){
-
+        factory = msg.sender;
     }
 
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, 'FORBIDDEN'); // sufficient check
-        token0 = _token0;
-        token1 = _token1;
+        token0 = IERC20(_token0);
+        token1 = IERC20(_token1);
     }
 
     function _mint(address _to,uint _amount) private { // to mint the shares 
