@@ -50,7 +50,7 @@ module.exports = {
     fhenix: {
       url: "https://fhenode.fhenix.io/new/evm",
       chainId: 5432,
-      accounts: [Private_Key],
+      accounts: [Private_Key]
     },
     zama: {
       accounts: [Private_Key],

@@ -9,7 +9,7 @@ contract BTCERC20 is ERC20 {
 
     constructor() ERC20("BTCERC20","BTC") {
         i_owner = msg.sender;
-        mint(msg.sender, 1000 * 10 ** decimals());
+        mint(msg.sender, 10000 * 10 ** decimals());
     }
 
     function mint(address to, uint256 amount) public {
