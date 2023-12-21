@@ -4,6 +4,7 @@ pragma solidity ^0.8.19;
 
 import "./IERC20.sol";
 
+
 contract CPAMM {
     IERC20 public immutable token0;
     IERC20 public immutable token1;
