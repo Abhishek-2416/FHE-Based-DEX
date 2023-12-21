@@ -77,11 +77,7 @@ contract CPAMM {
     function addLiquidity(uint _amount0, uint _amount1) external returns(uint shares){ 
         // pull in token 1 and token 2 
         // mint the shares 
-<<<<<<< HEAD
-        // update the reserves 
-=======
         // update the reserves
->>>>>>> refs/remotes/origin/Final
         
         // pull in tokens 
         token0.transferFrom(msg.sender,address(this),_amount0);

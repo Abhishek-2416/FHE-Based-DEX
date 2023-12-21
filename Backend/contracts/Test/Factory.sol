@@ -31,8 +31,4 @@ contract Factory {
         allPairs.push(pair);
         emit PairCreated(token0, token1, pair, allPairs.length);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/Final
 }
