@@ -32,5 +32,5 @@ contract Factory {
         emit PairCreated(token0, token1, pair, allPairs.length);
     }
     
-
+    
 }
