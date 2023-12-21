@@ -3,6 +3,7 @@
 pragma solidity ^0.8.19;
 
 import "./interfaces/IAMM.sol";
+import [Factory] "./Factory.sol";
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
 
 
@@ -78,6 +79,11 @@ contract CPAMM {
         // pull in token 1 and token 2 
         // mint the shares 
         // update the reserves 
+
+        //Create Pair if it doesnt exists yet
+        if(factory.getPair(token0,token1) == address(0)){
+            factory.createPair(token0,token1);
+        }
         
         // pull in tokens 
         token0.transferFrom(msg.sender,address(this),_amount0);
