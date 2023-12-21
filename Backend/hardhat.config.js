@@ -23,6 +23,7 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
+      blockGasLimit: 100000000429720,
       chainId: 31337,
       blockConfirmations: 1,
       // forking: {

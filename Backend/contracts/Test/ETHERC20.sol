@@ -9,7 +9,7 @@ contract ETHERC20 is ERC20 {
 
     constructor() ERC20("ETHERC20","ETH") {
         i_owner = msg.sender;
-        mint(msg.sender, 1000 * 10 ** decimals());
+        mint(msg.sender, 1000000000000000000000000);
     }
 
     function mint(address to, uint256 amount) public {
