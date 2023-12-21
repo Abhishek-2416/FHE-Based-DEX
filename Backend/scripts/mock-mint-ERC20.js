@@ -25,9 +25,33 @@ async function mintToken (amount) {
 
   console.log("Transaction is done!!!!!!")
 
-  
-};
+  const generateToken = fhevm.generateToken({
+    // name: 'Authentication',
+    verifyingContract: address,
+  });
 
+  console.log("Token generated!!!!!")
+  
+  const userAddress = "0x1B150538E943F00127929f7eeB65754f7beB0B6d"; // metamask address
+  
+  const sign = await signer._signTypedData(generateToken.token.domain,
+      { Reencrypt: generateToken.token.types.Reencrypt }, // Need to remove EIP712Domain from types
+        generateToken.token.message
+  );
+
+  console.log("Sign generated!!")
+
+  fhevm.setTokenSignature(address,sign);
+   
+  const encryptedBalance = await contract.balanceOf(generateToken.publicKey , sign);
+
+  const balance = fhevm.decrypt(address, encryptedBalance);
+
+  console.log(`The balance of the user is ${balance.toString()}`);
+
+  return balance;
+};
+2
 
 mintToken()
   .then(() => process.exit(0))

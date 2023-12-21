@@ -51,7 +51,6 @@ module.exports = {
       url: "https://fhenode.fhenix.io/new/evm",
       chainId: 5432,
       accounts: [Private_Key],
-      timeout: 10000000,
     },
     zama: {
       accounts: [Private_Key],

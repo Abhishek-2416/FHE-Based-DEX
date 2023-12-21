@@ -48,8 +48,5 @@
     "stop:localfhenix": "docker stop localfhenix && docker rm localfhenix",
     "restart:localfhenix": "stop:localfhenix && start:localfhenix",
     "faucet": "node getFromFaucet.js"
-  },
-  "name": "project",
-  "version": "1.0.0",
-  "license": "MIT"
+  }
 }

@@ -3,7 +3,7 @@ const { network , ethers } = require("hardhat");
 module.exports = async ({getNamedAccounts, deployments}) => {
     const {deployer} = await getNamedAccounts();
     const {deploy,log} = deployments;
-    const chainid = network.config.chainId.toString();
+    const chainid = network.config.chainId;
     log("deploy to the chainId " + chainid);
 
     args = [];

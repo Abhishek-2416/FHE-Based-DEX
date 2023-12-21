@@ -8,9 +8,9 @@ import "fhevm/lib/TFHE.sol";
 
 contract EncryptedERC20 is EIP712WithModifier {
     euint32 private totalSupply;
-    string public constant name = "Naraggara"; 
-    string public constant symbol = "NARA";
-    uint8 public constant decimals = 18;
+    string public constant name = "Wrapped ERC20 Private"; 
+    string public constant symbol = "WEP";
+    uint8 public constant decimals = 3;
 
     // used for output authorization
     bytes32 private DOMAIN_SEPARATOR;
