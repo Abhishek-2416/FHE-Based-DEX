@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 import {CPAMM} from "./Test/AMM.sol";
 
-contract Factory {
+contract FactoryFHE {
 
     mapping(address => mapping(address => address)) public getPair;
 
