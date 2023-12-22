@@ -6,8 +6,9 @@ import "fhevm/lib/TFHE.sol";
 import "./IERC20.sol";
 
 contract Pair {
-    IERC20 public immutable token0;
-    IERC20 public immutable token1;
+    IERC20 public token0;
+    IERC20 public token1;
+    address public factory;
 
     uint public reserve0;
     uint public reserve1;
@@ -15,7 +16,10 @@ contract Pair {
     uint public totalSupply;
     mapping(address => uint) public balanceOf;
 
-    constructor(address _token0, address _token1) {
+    
+
+    function initialize(address _token0, address _token1) external {
+        require(msg.sender == factory, 'FORBIDDEN'); // sufficient check
         token0 = IERC20(_token0);
         token1 = IERC20(_token1);
     }
