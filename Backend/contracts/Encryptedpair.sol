@@ -8,7 +8,7 @@ import "./IERC20.sol";
 contract Pair {
     IERC20 public token0;
     IERC20 public token1;
-    address public factory;
+    address public immutable factory;
 
     uint public reserve0;
     uint public reserve1;
@@ -16,7 +16,9 @@ contract Pair {
     uint public totalSupply;
     mapping(address => uint) public balanceOf;
 
-    
+    constructor() {
+        factory = msg.sender;
+    }
 
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, 'FORBIDDEN'); // sufficient check
