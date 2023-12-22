@@ -13,6 +13,8 @@ async function mnemonicToAddress() {
 
     console.log("Ethereum address: " + wallet.address);
     return wallet.address;
+    // let x = 0x0319069ca5e383e40d6d19fb3e76e8b22b91cf4b0df661850c8e1de01624ab1d10
+    // return x
 }
 
 async function callFaucet(address) {

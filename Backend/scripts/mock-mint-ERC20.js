@@ -51,7 +51,6 @@ async function mintToken (amount) {
 
   return balance;
 };
-2
 
 mintToken()
   .then(() => process.exit(0))

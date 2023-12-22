@@ -15,7 +15,7 @@ contract EncryptedMOCKERC20 is EIP712WithModifier {
     // The euint is a type that stores the reference of the encrypted value || hash of the cipher text
     // It basically stores the hash of the cipher 
     // The cipher text is encrypted under the public fhe key 
-    mapping(address => euint32) internal _balances;
+    mapping(address => euint32) public balances;
 
     constructor () EIP712WithModifier("Auth_ERC20", "1"){
         contractOwner = msg.sender;
@@ -27,7 +27,7 @@ contract EncryptedMOCKERC20 is EIP712WithModifier {
     function balanceOf(bytes32 publicKey,bytes calldata signature) public view 
     onlySignedPublicKey(publicKey,signature)
     returns(bytes memory) {
-        return TFHE.reencrypt(_balances[msg.sender], publicKey, 0);
+        return TFHE.reencrypt(balances[msg.sender], publicKey, 0);
     }
 
     /**
@@ -54,17 +54,17 @@ contract EncryptedMOCKERC20 is EIP712WithModifier {
         euint32 userinput = TFHE.asEuint32(_amountCipherText); 
 
         // using the library to increase the balance of the user by using the .add() method on encrypted data 
-        _balances[msg.sender] = TFHE.add(_balances[msg.sender], userinput);
+        balances[msg.sender] = TFHE.add(balances[msg.sender], userinput);
     }
 
     function transfer(address to, bytes calldata amountCipherText) public {
         euint32 amount = TFHE.asEuint32(amountCipherText);
 
-        ebool  sufficient = TFHE.le(amount,_balances[msg.sender]);
+        ebool  sufficient = TFHE.le(amount,balances[msg.sender]);
         TFHE.optReq(sufficient);
 
-        _balances[to] = TFHE.add(_balances[to], amount);
-        _balances[msg.sender] = TFHE.sub(_balances[msg.sender], amount);
+        balances[to] = TFHE.add(balances[to], amount);
+        balances[msg.sender] = TFHE.sub(balances[msg.sender], amount);
     }
 
 }
