@@ -55,7 +55,7 @@ async function interactionTestfactory() {
    console.log("teh balance BTC after swap is ", after_balance_BTC.toString());
 
    const after_balance_ETH = await MockETH.balanceOf(accounts[0].address);
-   console.log("teh balance is ETH after swap ", after_balance_ETH);
+   console.log("teh balance is ETH after swap ", after_balance_ETH.toString());
 
    const zy = await CPAMM.totalSupply();
    console.log("The initail supoply ", zy.toString());
