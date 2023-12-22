@@ -4,7 +4,7 @@ const { getInstance, provider } = require("./interaction");
 
 // const contractAddress = "0x2e1771fcEFFA28Fd49910AC8aAc647f01A86b58A";
 const signer = new ethers.Wallet(process.env.Private_Key,provider);
-const address = "0xceE69dC06aF4b9F5a8622FB8de4bd4678e1Fd2F7"
+const address = "0x1dCEB0c3055e94e0ec0a6b7BAA3fe04414041FeD"
 
 
 async function mintToken (amount) {
@@ -48,6 +48,10 @@ async function mintToken (amount) {
   const balance = fhevm.decrypt(address, encryptedBalance);
 
   console.log(`The balance of the user is ${balance.toString()}`);
+
+  // const balance = await contract.balances(userAddress);
+
+  // console.log("The balance is " + balance);
 
   return balance;
 };

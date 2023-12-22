@@ -8,9 +8,9 @@ async function interactionTestfactory() {
     const Factory = await ethers.getContract("Factory");
     
 
-    console.log("The tokens have been initiated")
+    console.log("The tokens have been initiated");
     
-    let accounts = await ethers.getSigners()
+    let accounts = await ethers.getSigners();
 
     // for (let index = 1; index < 3; index++) {
     //     await MockBTC.transfer(accounts[index].address,ethers.utils.parseEther("100"));
@@ -18,10 +18,9 @@ async function interactionTestfactory() {
     //     console.log("transfer made !!!!!!");
     // }
 
-
    await Factory.createPair(MockBTC.address,MockETH.address);
 
-   const pair = await Factory.getPair(MockBTC.address,MockETH.address) 
+   const pair = await Factory.getPair(MockBTC.address,MockETH.address);
 
    console.log(`The pair address that is created ${pair}`);
 

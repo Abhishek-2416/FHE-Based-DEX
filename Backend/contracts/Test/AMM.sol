@@ -38,39 +38,44 @@ contract CPAMM {
         totalSupply -= _amount;
     }
 
-    function _update(uint _reserve0, uint _reserve1) private { // to update the reserves
-        reserve0 = reserve1;
+    function _update(uint _reserve0, uint _reserve1) private {
+        reserve0 = _reserve0;
         reserve1 = _reserve1;
     }
 
-    function swap(address _tokenIn, uint _amountIn) external returns(uint _amountOut){
-        // Pull in tokenIn
-        // calculate tokenOut, iuncluding fees, 0.3% fee
-        // transfer tokenOut to msg.sender
-        // update the reserves
-        require(_tokenIn == address(token0) || _tokenIn == address(token1),"Invalid input token");
-        require(_amountIn > 0, "Input amount too low");
+    function swap(address _tokenIn, uint _amountIn) external returns (uint amountOut) {
+        require(
+            _tokenIn == address(token0) || _tokenIn == address(token1),
+            "invalid token"
+        );
+        require(_amountIn > 0, "amount in = 0");
 
-        bool istoken0 = _tokenIn == address(token0);
+        bool isToken0 = _tokenIn == address(token0);
 
-        (IERC20 _tokenIn, IERC20 _tokenOut, uint _reserveIn, uint _reserveOut) = istoken0 
-        ? (token0,token1,reserve0,reserve1) : (token1, token0,reserve1,reserve0); 
+        (IERC20 tokenIn, IERC20 tokenOut, uint reserveIn, uint reserveOut) = isToken0
+            ? (token0, token1, reserve0, reserve1)
+            : (token1, token0, reserve1, reserve0);
 
-        // transferring tokens in 
-        _tokenIn.transferFrom(msg.sender, address(this), _amountIn);
-        
-        // calculating the amount of token to be given out (including fee)
-        // y*dx / (x + dx) = dy 
-        uint _amountOutWithFee = (_amountIn * 997)/1000;
-        _amountOut = (_reserveOut * _amountIn)/(_reserveIn + _amountIn);
+        tokenIn.transferFrom(msg.sender, address(this), _amountIn);
 
-        
-        // transferring token out 
-        _tokenOut.transfer(msg.sender,_amountOut);
-        
-        // updating the reserve 
-        _update(token0.balanceOf(address(this)),token1.balanceOf(address(this)));
+        /*
+        How much dy for dx?
 
+        xy = k
+        (x + dx)(y - dy) = k
+        y - dy = k / (x + dx)
+        y - k / (x + dx) = dy
+        y - xy / (x + dx) = dy
+        (yx + ydx - xy) / (x + dx) = dy
+        ydx / (x + dx) = dy
+        */
+        // 0.3% fee
+        uint amountInWithFee = (_amountIn * 997) / 1000;
+        amountOut = (reserveOut * amountInWithFee) / (reserveIn + amountInWithFee);
+
+        tokenOut.transfer(msg.sender, amountOut);
+
+        _update(token0.balanceOf(address(this)), token1.balanceOf(address(this)));
     }
 
     // when someone add liquidity , shares mint
