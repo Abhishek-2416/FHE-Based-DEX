@@ -6,7 +6,7 @@ import "fhevm/abstracts/EIP712WithModifier.sol";
 
 import "fhevm/lib/TFHE.sol";
 
-contract EncryptedERC20 is EIP712WithModifier {
+contract EncryptedETHERC20 is EIP712WithModifier {
     euint32 private totalSupply;
     string public constant name = "Wrapped ERC20 Private"; 
     string public constant symbol = "WEP";
