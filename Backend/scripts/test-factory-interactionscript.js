@@ -22,7 +22,7 @@ async function interactionTestfactory() {
     //     console.log("transfer made !!!!!!");
     // }
 
-  //  await Factory.createPair(MockBTC.address,MockETH.address);
+  //  await Factory.createPair(MockBTC.address,MockETH.address);   
 
    console.log("Pair has been created");
 
@@ -41,7 +41,7 @@ async function interactionTestfactory() {
    console.log("the balance is ", xy.toString())
 
    await MockBTC.connect(accounts[0]).approve(pair,ethers.utils.parseEther("157"));
-   await MockETH.connect(accounts[0]).approve(pair,ethers.utils.parseEther("159"));
+   await MockETH.connect(accounts[0]).approve(pair,ethers.utils.parseEther("157"));
    await CPAMM.addLiquidity(ethers.utils.parseEther("51"),ethers.utils.parseEther("56"));
 
    console.log("The liquidity has been added");
