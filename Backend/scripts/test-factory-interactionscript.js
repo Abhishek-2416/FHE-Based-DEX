@@ -8,14 +8,14 @@ async function interactionTestfactory() {
     // const Factory = await ethers.getContract("Factory");
 
     // zama 
-    const MockBTC =  await ethers.getContractAt("BTCERC20","0x068c8Ef64440E6FEFC2265730d447a563bD0Ba2a");
-    const MockETH =  await ethers.getContractAt("ETHERC20","0x66924B95D9B149B0BE0f9a48a3F94C9F9C27F078");
-    const Factory = await ethers.getContractAt("Factory","0xeBA85f783913499434f74d0f5261cF34410A962A");
+    // const MockBTC =  await ethers.getContractAt("BTCERC20","0x068c8Ef64440E6FEFC2265730d447a563bD0Ba2a");
+    // const MockETH =  await ethers.getContractAt("ETHERC20","0x66924B95D9B149B0BE0f9a48a3F94C9F9C27F078");
+    // const Factory = await ethers.getContractAt("Factory","0xcb4bfA4a1b4D70d86DE35BdA2430eF0d1775B0A2");
     
     // localFhenix
-    // const MockBTC =  await ethers.getContractAt("BTCERC20","0x23A2EFb84Fa767D11f5c0d843d3e25Da289DAcFa");
-    // const MockETH =  await ethers.getContractAt("ETHERC20","0xa87A81E9dDADca47051A3E3a881dB3C95eAF7b08");
-    // const Factory = await ethers.getContractAt("Factory","0x3b79dc944514d69a59159bC243BE2c0737947D0f");
+    const MockBTC =  await ethers.getContractAt("BTCERC20","0x23A2EFb84Fa767D11f5c0d843d3e25Da289DAcFa");
+    const MockETH =  await ethers.getContractAt("ETHERC20","0xa87A81E9dDADca47051A3E3a881dB3C95eAF7b08");
+    const Factory =  await ethers.getContractAt("Factory", "0x3b79dc944514d69a59159bC243BE2c0737947D0f");
 
     console.log("The tokens have been initiated");
     
@@ -45,9 +45,9 @@ async function interactionTestfactory() {
    const xy = await MockBTC.balanceOf(accounts[0].address);
    console.log("the balance is ", xy.toString())
 
-   await MockBTC.connect(accounts[0]).approve(pair,ethers.utils.parseEther("15"));
-   await MockETH.connect(accounts[0]).approve(pair,ethers.utils.parseEther("15"));
-   await CPAMM.addLiquidity(ethers.utils.parseEther("1"),ethers.utils.parseEther("1"));
+   await MockBTC.approve(pair,ethers.utils.parseEther("15"));
+   await MockETH.approve(pair,ethers.utils.parseEther("15"));
+   await CPAMM.addLiquidity(ethers.utils.parseEther("5"),ethers.utils.parseEther("12"));
 
    console.log("The liquidity has been added");
 
@@ -58,16 +58,16 @@ async function interactionTestfactory() {
    console.log("the balance is BTC before swap ", beforeswap_balance_BTC.toString());
 
    const beforeswap_balance_ETH = await MockETH.balanceOf(accounts[0].address);
-   console.log("the balance is ETH before swap ", beforeswap_balance_BTC.toString());
+   console.log("the balance is ETH before swap ", beforeswap_balance_ETH.toString());
 
-   await MockBTC.connect(accounts[0]).approve(pair,ethers.utils.parseEther("1"));
+   await MockBTC.approve(pair,ethers.utils.parseEther("2"));
    await CPAMM.swap(MockBTC.address, ethers.utils.parseEther("1"));
 
    const after_balance_BTC = await MockBTC.balanceOf(accounts[0].address);
    console.log("the balance BTC after swap is ", after_balance_BTC.toString());
 
    const after_balance_ETH = await MockETH.balanceOf(accounts[0].address);
-   console.log("the balance is ETH after swap ", after_balance_ETH.toString());
+   console.log("the balance of ETH after swap ", after_balance_ETH.toString());
 
    const zy = await CPAMM.totalSupply();
    console.log("The initial supply ", zy.toString());
