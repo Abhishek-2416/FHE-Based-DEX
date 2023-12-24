@@ -7,10 +7,15 @@ async function interactionTestfactory() {
     // const MockETH =  await ethers.getContract("ETHERC20");
     // const Factory = await ethers.getContract("Factory");
 
+    // zama 
     const MockBTC =  await ethers.getContractAt("BTCERC20","0x068c8Ef64440E6FEFC2265730d447a563bD0Ba2a");
     const MockETH =  await ethers.getContractAt("ETHERC20","0x66924B95D9B149B0BE0f9a48a3F94C9F9C27F078");
     const Factory = await ethers.getContractAt("Factory","0xeBA85f783913499434f74d0f5261cF34410A962A");
     
+    // localFhenix
+    // const MockBTC =  await ethers.getContractAt("BTCERC20","0x23A2EFb84Fa767D11f5c0d843d3e25Da289DAcFa");
+    // const MockETH =  await ethers.getContractAt("ETHERC20","0xa87A81E9dDADca47051A3E3a881dB3C95eAF7b08");
+    // const Factory = await ethers.getContractAt("Factory","0x3b79dc944514d69a59159bC243BE2c0737947D0f");
 
     console.log("The tokens have been initiated");
     
@@ -26,7 +31,7 @@ async function interactionTestfactory() {
 
    console.log("Pair has been created");
 
-   const pair = await Factory.getPair(MockBTC.address,MockETH.address);
+   const pair = await Factory.getPair(MockETH.address,MockBTC.address);
 
    console.log(`The pair address that is created ${pair}`);
 
@@ -40,9 +45,9 @@ async function interactionTestfactory() {
    const xy = await MockBTC.balanceOf(accounts[0].address);
    console.log("the balance is ", xy.toString())
 
-   await MockBTC.connect(accounts[0]).approve(pair,ethers.utils.parseEther("157"));
-   await MockETH.connect(accounts[0]).approve(pair,ethers.utils.parseEther("157"));
-   await CPAMM.addLiquidity(ethers.utils.parseEther("51"),ethers.utils.parseEther("56"));
+   await MockBTC.connect(accounts[0]).approve(pair,ethers.utils.parseEther("15"));
+   await MockETH.connect(accounts[0]).approve(pair,ethers.utils.parseEther("15"));
+   await CPAMM.addLiquidity(ethers.utils.parseEther("1"),ethers.utils.parseEther("1"));
 
    console.log("The liquidity has been added");
 
