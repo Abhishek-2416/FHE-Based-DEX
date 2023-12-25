@@ -20,12 +20,12 @@ contract Pair is EIP712WithModifier {
         factory = msg.sender;
     }
 
-    function BalanceOf(bytes32 publicKey,bytes calldata signature) public view 
-    onlySignedPublicKey(publicKey,signature)
-    returns(bytes memory reencrypted) {
-        // return TFHE.reencrypt(balanceOf[msg.sender], publicKey, 0);
-        reencrypted = TFHE.reencrypt(balanceOf[msg.sender],publicKey,0);
-    }
+    // function BalanceOf(bytes32 publicKey,bytes calldata signature) public view 
+    // onlySignedPublicKey(publicKey,signature)
+    // returns(bytes memory reencrypted) {
+    //     // return TFHE.reencrypt(balanceOf[msg.sender], publicKey, 0);
+    //     reencrypted = TFHE.reencrypt(balanceOf[msg.sender],publicKey,0);
+    // }
 
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, 'FORBIDDEN'); // sufficient check
