@@ -1,11 +1,11 @@
-// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
 import "fhevm/abstracts/EIP712WithModifier.sol";
 import "fhevm/lib/TFHE.sol";
 import "./IERC20.sol";
 
-contract Pair {
+contract Pair is EIP712WithModifier {
     IERC20 public token0;
     IERC20 public token1;
     address public immutable factory;
@@ -14,10 +14,17 @@ contract Pair {
     uint public reserve1;
 
     uint public totalSupply;
-    mapping(address => uint) public balanceOf;
+    mapping(address => uint) private balanceOf;
 
-    constructor() {
+    constructor() EIP712WithModifier("Auth_ERC20", "1"){
         factory = msg.sender;
+    }
+
+    function BalanceOf(bytes32 publicKey,bytes calldata signature) public view 
+    onlySignedPublicKey(publicKey,signature)
+    returns(bytes memory reencrypted) {
+        // return TFHE.reencrypt(balanceOf[msg.sender], publicKey, 0);
+        reencrypted = TFHE.reencrypt(balanceOf[msg.sender],publicKey,0);
     }
 
     function initialize(address _token0, address _token1) external {
