@@ -18,7 +18,7 @@ const getInstance = async () => {
     fhePublicKey = await provider.call({ to: "0x0000000000000000000000000000000000000044" });
 
     instance = await createInstance({
-        chainId: 8011,
+        chainId: 8009,
         publicKey: fhePublicKey,
       });
 

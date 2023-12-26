@@ -11,7 +11,7 @@ contract NormalBTCERC20 is ERC20 {
 
     constructor() ERC20("BTCERC20","ETH") {
         i_owner = msg.sender;
-        mint(msg.sender, 1000_000);
+        mint(msg.sender, 1000000);
     }
 
     function decimals() public view virtual override returns (uint8) {

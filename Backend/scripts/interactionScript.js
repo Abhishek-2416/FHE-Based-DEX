@@ -3,7 +3,6 @@ const { createInstance } = require("fhevmjs");
 const { getInstance, provider } = require("./interaction");
 
 const signer = new ethers.Wallet(process.env.Private_Key,provider);
-// const address = "0x1dCEB0c3055e94e0ec0a6b7BAA3fe04414041FeD"
 
 
 async function Main() {
@@ -11,15 +10,15 @@ async function Main() {
     const amount = 100000
 
     // Normal-ERC20 Zama 
-    // const MockBTC =  await ethers.getContractAt("NormalBTCERC20","0x3141F7A0bC08A49F25f37304b2f53247a36aA52f",signer);
-    // const MockETH =  await ethers.getContractAt("NormalETHERC20","0x3a168E1514b205E182e8c0CD8a0bdbAD56c0725b",signer);
-    // const Factory =  await ethers.getContractAt("FactoryFHE", "0xa98dae43641a0c4619f04b7f6c772a035Ed5F3dC",signer);
+    const MockBTC =  await ethers.getContractAt("NormalBTCERC20","0x3141F7A0bC08A49F25f37304b2f53247a36aA52f",signer);
+    const MockETH =  await ethers.getContractAt("NormalETHERC20","0x699A0538067FEfcd3721151085F34696d3C4e4e2",signer);
+    const Factory =  await ethers.getContractAt("FactoryFHE", "0xBc1666771b708458b97C34f6b98D229B0f045527",signer);
 
 
     // Ecrypted-ERC20 localfhenix 
-    const MockBTC =  await ethers.getContractAt("NormalBTCERC20","0xB585Fd45509a3564ddCC5Ed6DFc9d96363451fD6",signer);
-    const MockETH =  await ethers.getContractAt("NormalETHERC20","0xE065658225454a87D00D1428347E24B69790eAa9",signer);
-    const Factory =  await ethers.getContractAt("FactoryFHE", "0x3Cf5b95B7A516AE868182C0b0AfDB9dC62df6ecd",signer);
+    // const MockBTC =  await ethers.getContractAt("NormalBTCERC20","0xB585Fd45509a3564ddCC5Ed6DFc9d96363451fD6",signer);
+    // const MockETH =  await ethers.getContractAt("NormalETHERC20","0xE065658225454a87D00D1428347E24B69790eAa9",signer);
+    // const Factory =  await ethers.getContractAt("FactoryFHE", "0x3Cf5b95B7A516AE868182C0b0AfDB9dC62df6ecd",signer);
 
     const fhevm = await getInstance();
 
@@ -39,6 +38,8 @@ async function Main() {
 
     await MockBTC.mint(accounts[0].address,amount);
     await MockETH.mint(accounts[0].address,amount);
+
+    console.log("The amount has been minted!!!!");
 
     const AfterMint_hashBTC = await MockBTC.balanceOf(accounts[0].address);
 
@@ -64,12 +65,17 @@ async function Main() {
    
     console.log(`the token initalized is ${token}`);
 
-    await MockBTC.approve(pair,amount);
+    await MockBTC.connect(accounts[0]).approve(pair,amount);
+
+    console.log("BTC Mock approved!!");
+
     await MockETH.approve(pair,amount);
 
-    const encryptedValue = fhevm.encrypt32(amount);
+    console.log("ETH Mock approved!!");
 
-    await CPAMM.addLiquidity(encryptedValue,encryptedValue);
+    const encryptedValue = fhevm.encrypt32(10000);
+
+    await CPAMM.connect(accounts[0]).addLiquidity(encryptedValue,encryptedValue);
 
     const supplyafterLiquidityAdded = await CPAMM.totalSupply();
 
