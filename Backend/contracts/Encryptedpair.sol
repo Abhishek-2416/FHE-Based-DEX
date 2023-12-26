@@ -61,12 +61,12 @@ contract Pair is EIP712WithModifier {
             ? (token0, token1, reserve0, reserve1)
             : (token1, token0, reserve1, reserve0);
 
-        tokenIn.transferFrom(msg.sender, address(this), amountIn);
+        tokenIn.transferFrom(msg.sender, address(this), uint256(amountIn));
 
         uint amountInWithFee = (amountIn * 997) / 1000;
         amountOut = (reserveOut * amountInWithFee) / (reserveIn + amountInWithFee);
 
-        tokenOut.transfer(msg.sender, amountOut);
+        tokenOut.transfer(msg.sender, uint256(amountOut));
 
         _update(token0.balanceOf(address(this)), token1.balanceOf(address(this)));
     }
@@ -75,8 +75,8 @@ contract Pair is EIP712WithModifier {
         uint32 amount0 = TFHE.decrypt(TFHE.asEuint32(_amount0));
         uint32 amount1 = TFHE.decrypt(TFHE.asEuint32(_amount1));
         
-        token0.transferFrom(msg.sender, address(this), amount0);
-        token1.transferFrom(msg.sender, address(this), amount1);
+        token0.transferFrom(msg.sender, address(this), uint256(amount0));
+        token1.transferFrom(msg.sender, address(this), uint256(amount1));
 
         if (reserve0 > 0 || reserve1 > 0) {
             require(reserve0 * amount1 == reserve1 * amount0, "x / y != dx / dy");
@@ -111,8 +111,8 @@ contract Pair is EIP712WithModifier {
         _burn(msg.sender, shares);
         _update(bal0 - amount0, bal1 - amount1);
 
-        token0.transfer(msg.sender, amount0);
-        token1.transfer(msg.sender, amount1);
+        token0.transfer(msg.sender, uint256(amount0));
+        token1.transfer(msg.sender, uint256(amount1));
     }
 
     function _sqrt(uint y) private pure returns (uint z) {
