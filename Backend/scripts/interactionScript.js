@@ -14,6 +14,10 @@ async function Main() {
     const MockETH =  await ethers.getContractAt("EncryptedETHERC20","0x5c882C54dE0786FB504c59017BFA5Bb875808C5E",signer);
     const Factory =  await ethers.getContractAt("FactoryFHE", "0x696659513c11029f72AB9F3FE31BEe858958B342",signer);
 
+    // const MockBTC =  await ethers.getContractAt("EncryptedBTCERC20","0x22c8143FC83b29399a355E67A940f1eA30b4df1D",signer);
+    // const MockETH =  await ethers.getContractAt("EncryptedETHERC20","0xf82C601b7dBb0ef16e587abb50DECBB57666F83D",signer);
+    // const Factory =  await ethers.getContractAt("FactoryFHE", "0x9e6099640bE387299F636e3cFB35cBc2b9f01606",signer);
+
     // const contract = await ethers.getContractAt("EncryptedMOCKERC20",address,signer);
     const fhevm = await getInstance();
 
@@ -34,11 +38,11 @@ async function Main() {
 
     const AfterMint_hashBTC = await MockBTC.balances(accounts[0].address);
 
-    console.log("The Balance hash of BTC before mint " + AfterMint_hashBTC);
+    console.log("The Balance hash of BTC After mint " + AfterMint_hashBTC);
 
     const AfterMint_hashETH = await MockETH.balances(accounts[0].address);
 
-    console.log("The Balance hash of ETH before mint " + AfterMint_hashETH);
+    console.log("The Balance hash of ETH After mint " + AfterMint_hashETH);
 
     // await Factory.createPair(MockBTC.address,MockETH.address); 
 

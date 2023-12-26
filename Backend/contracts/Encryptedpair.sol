@@ -71,7 +71,7 @@ contract Pair is EIP712WithModifier {
         _update(token0.balanceOf(address(this)), token1.balanceOf(address(this)));
     }
 
-    function addLiquidity(bytes calldata _amount0, bytes calldata _amount1) external returns (uint shares) {
+    function addLiquidity(bytes memory _amount0, bytes memory _amount1) external returns (uint shares) {
         uint32 amount0 = TFHE.decrypt(TFHE.asEuint32(_amount0));
         uint32 amount1 = TFHE.decrypt(TFHE.asEuint32(_amount1));
         
