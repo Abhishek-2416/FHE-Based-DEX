@@ -3,9 +3,9 @@ const { ethers } = require("hardhat");
 
 async function interactionTestfactory() {
 
-    // const MockBTC =  await ethers.getContract("BTCERC20");
-    // const MockETH =  await ethers.getContract("ETHERC20");
-    // const Factory = await ethers.getContract("Factory");
+    const MockBTC =  await ethers.getContract("BTCERC20");
+    const MockETH =  await ethers.getContract("ETHERC20");
+    const Factory = await ethers.getContract("Factory");
 
     // zama 
     // const MockBTC =  await ethers.getContractAt("BTCERC20","0x068c8Ef64440E6FEFC2265730d447a563bD0Ba2a");
@@ -13,9 +13,9 @@ async function interactionTestfactory() {
     // const Factory = await ethers.getContractAt("Factory","0xcb4bfA4a1b4D70d86DE35BdA2430eF0d1775B0A2");
     
     // localFhenix
-    const MockBTC =  await ethers.getContractAt("BTCERC20","0x23A2EFb84Fa767D11f5c0d843d3e25Da289DAcFa");
-    const MockETH =  await ethers.getContractAt("ETHERC20","0xa87A81E9dDADca47051A3E3a881dB3C95eAF7b08");
-    const Factory =  await ethers.getContractAt("Factory", "0x3b79dc944514d69a59159bC243BE2c0737947D0f");
+    // const MockBTC =  await ethers.getContractAt("BTCERC20","0x23A2EFb84Fa767D11f5c0d843d3e25Da289DAcFa");
+    // const MockETH =  await ethers.getContractAt("ETHERC20","0xa87A81E9dDADca47051A3E3a881dB3C95eAF7b08");
+    // const Factory =  await ethers.getContractAt("Factory", "0x3b79dc944514d69a59159bC243BE2c0737947D0f");
 
     console.log("The tokens have been initiated");
     
@@ -27,7 +27,7 @@ async function interactionTestfactory() {
     //     console.log("transfer made !!!!!!");
     // }
 
-  //  await Factory.createPair(MockBTC.address,MockETH.address);   
+   await Factory.createPair(MockBTC.address,MockETH.address);   
 
    console.log("Pair has been created");
 
