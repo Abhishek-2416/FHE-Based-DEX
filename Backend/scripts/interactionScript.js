@@ -12,7 +12,7 @@ async function Main() {
     // Normal-ERC20 Zama 
     const MockBTC =  await ethers.getContractAt("NormalBTCERC20","0x3141F7A0bC08A49F25f37304b2f53247a36aA52f",signer);
     const MockETH =  await ethers.getContractAt("NormalETHERC20","0x699A0538067FEfcd3721151085F34696d3C4e4e2",signer);
-    const Factory =  await ethers.getContractAt("FactoryFHE", "0x40b1B9873b259563a7f3780599EC00a414fF9B60",signer);
+    const Factory =  await ethers.getContractAt("FactoryFHE", "0x805AbBe78ff1c8966FdADf4AbF75D8f12668B233",signer);
 
 
     // Ecrypted-ERC20 localfhenix 
@@ -65,15 +65,15 @@ async function Main() {
    
     console.log(`the token initalized is ${token}`);
 
-    await MockBTC.connect(accounts[0]).approve(pair,2000000000);
+    await MockBTC.connect(accounts[0]).approve(pair,"2000000000");
 
     console.log("BTC Mock approved!!");
 
-    await MockETH.approve(pair,20000000000);
+    await MockETH.approve(pair,"20000000000");
 
     console.log("ETH Mock approved!!");
 
-    const encryptedValue = fhevm.encrypt32(10000);
+    const encryptedValue = fhevm.encrypt32(1000);
 
     await CPAMM.connect(accounts[0]).addLiquidity(encryptedValue,encryptedValue);
 

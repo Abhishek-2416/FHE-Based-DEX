@@ -48,7 +48,7 @@ contract Pair is EIP712WithModifier {
         reserve1 = _reserve1;
     }
 
-    function swap(address _tokenIn, bytes calldata _amountIn) external returns (uint amountOut) {
+    function swap(address _tokenIn, bytes memory _amountIn) external returns (uint amountOut) {
         uint32 amountIn = TFHE.decrypt(TFHE.asEuint32(_amountIn));
         require(
             _tokenIn == address(token0) || _tokenIn == address(token1),
@@ -71,12 +71,12 @@ contract Pair is EIP712WithModifier {
         _update(token0.balanceOf(address(this)), token1.balanceOf(address(this)));
     }
 
-    function addLiquidity(bytes calldata _amount0, bytes calldata _amount1) external returns (uint shares) {
+    function addLiquidity(bytes memory _amount0, bytes memory _amount1) external returns (uint shares) {
         uint32 amount0 = TFHE.decrypt(TFHE.asEuint32(_amount0));
         uint32 amount1 = TFHE.decrypt(TFHE.asEuint32(_amount1));
         
-        token0.transferFrom(msg.sender, address(this), (amount0));
-        token1.transferFrom(msg.sender, address(this), (amount1));
+        token0.transferFrom(msg.sender, address(this), uint256(amount0));
+        token1.transferFrom(msg.sender, address(this), uint256(amount1));
 
         if (reserve0 > 0 || reserve1 > 0) {
             require(reserve0 * amount1 == reserve1 * amount0, "x / y != dx / dy");
@@ -97,7 +97,7 @@ contract Pair is EIP712WithModifier {
     }
 
     function removeLiquidity(
-        bytes calldata _shares
+        bytes memory _shares
     ) external returns (uint amount0, uint amount1) {
     
         uint32 shares = TFHE.decrypt(TFHE.asEuint32(_shares));
